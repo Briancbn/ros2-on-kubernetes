@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listener-d0
+  labels:
+    app: listener-d0
+spec:
+  selector:
+    matchLabels:
+      app: listener-d0
+  template:
+    metadata:
+      labels:
+        app: listener-d0
+    spec:
+      containers:
+      - name: listener
+        image: osrf/ros:humble-desktop
+        env: 
+        - name: ROS_DOMAIN_ID
+          value: "0"
+        args:
+        - ros2
+        - run
+        - demo_nodes_cpp
+        - listener
+        imagePullPolicy: Always
+      restartPolicy: Always

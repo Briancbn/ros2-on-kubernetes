@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: talker-d0
+  labels:
+    app: talker-d0
+spec:
+  selector:
+    matchLabels:
+      app: talker-d0
+  template:
+    metadata:
+      labels:
+        app: talker-d0
+    spec:
+      containers:
+      - name: talker
+        image: osrf/ros:humble-desktop
+        env:
+        - name: ROS_DOMAIN_ID
+          value: "0"
+        - name: ROS_LOG_LEVEL
+          value: "DEBUG"
+        args:
+        - ros2
+        - run
+        - demo_nodes_cpp
+        - talker
+        imagePullPolicy: Always
+      restartPolicy: Always
